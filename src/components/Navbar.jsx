@@ -1,27 +1,21 @@
 import React from 'react'
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
 import Navbar from 'react-bootstrap/Navbar';
-import HalfNav from './HalfNav'
+import HalfNav from './HalfNav';
+import Container from 'react-bootstrap/Container';
+import SearchInput from './SearchInput';
 
 const NavbarComponent = () => {
-  const searchBoxStyles = {
-    borderRadius: '20px'
-  }
+  
   return (
-    <Navbar expand="lg" className="bg-body-tertiary d-flex justify-content-center" style={{gap: '5%'}}>
-      <Navbar.Brand href="#" className='mx-5'>Shopwan</Navbar.Brand>
-        <Form className="d-flex" style={{width:"30%"}}>
-            <Form.Control 
-              style={searchBoxStyles}
-              type="search"
-              placeholder="Search"
-              className="me-2 b-r-25"
-              aria-label="Search"
-            />
-            <Button variant="outline-success " style={searchBoxStyles}>Search</Button>
-        </Form>
-        <HalfNav></HalfNav>
+    <Navbar expand="lg" className="bg-body-tertiary">
+      <Container fluid>
+        <Navbar.Brand href="#">Shopwan</Navbar.Brand>
+        <SearchInput></SearchInput>
+        <div>
+        <Navbar.Toggle aria-controls="navbarScroll2" />
+        <Navbar.Collapse id='navbarScroll2'><HalfNav></HalfNav></Navbar.Collapse>
+        </div>
+      </Container>
     </Navbar>
   )
 }

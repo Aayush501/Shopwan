@@ -16,7 +16,7 @@ const HalfNav = () => {
 
     return (
         <div>
-            {!isLoggedIn ? (
+            {isLoggedIn ? (
                 <>
                     <div className='d-flex'>
                         <CgProfile size={40} style={{marginRight: '30%'}}/>
