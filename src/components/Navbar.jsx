@@ -9,7 +9,7 @@ const NavbarComponent = () => {
     borderRadius: '20px'
   }
   return (
-    <Navbar expand="lg" className="bg-body-tertiary d-flex" style={{gap: '5%'}}>
+    <Navbar expand="lg" className="bg-body-tertiary d-flex justify-content-center" style={{gap: '5%'}}>
       <Navbar.Brand href="#" className='mx-5'>Shopwan</Navbar.Brand>
         <Form className="d-flex" style={{width:"30%"}}>
             <Form.Control 
