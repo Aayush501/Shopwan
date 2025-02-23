@@ -1,24 +1,64 @@
-import React, { useState } from 'react'
-import CategoryTabs from './middleMiddle/CategoryTabs'
-import ProductList from './lowerMiddle/ProductList'
-import ProductsCarousel from './upperMiddle/ProductsCarousel'
+import React, { useState, useEffect } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./HomeContent.css"; // ✅ Import CSS for styling
+import CategoryTabs from "./middleMiddle/CategoryTabs";
+import ProductList from "./lowerMiddle/ProductList";
+import ProductsCarousel from "./upperMiddle/ProductsCarousel";
+import Sidebar from "./lowerMiddle/Sidebar";
+import { Button } from "react-bootstrap";
+import { FaBars } from "react-icons/fa"; // Sidebar Toggle Icon
 
 const HomeContent = () => {
   const [chosenProducts, setChosenProducts] = useState("All");
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  // Close sidebar on screen resize
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 992) setIsSidebarOpen(false); // Close sidebar on large screens
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
     <>
-      <div>
-        <ProductsCarousel></ProductsCarousel>
+      {/* Products Carousel */}
+      <div className="my-2">
+        <ProductsCarousel />
       </div>
-      <div>
-        <CategoryTabs categories={["All Products", "Clothes", "Jewelleries", "Footwear"]} chosenProducts={chosenProducts} setChosenProducts={setChosenProducts}></CategoryTabs>
+
+      {/* Sticky Category Tabs */}
+      <div className="sticky-category my-2">
+        <CategoryTabs
+          categories={["All Products", "Clothes", "Jewelleries", "Footwear"]}
+          chosenProducts={chosenProducts}
+          setChosenProducts={setChosenProducts}
+        />
       </div>
-      <div>
-        <ProductList chosenProducts={chosenProducts}></ProductList>
+
+      {/* Sidebar + Product List Container */}
+      <div className="content-container">
+        {/* Sidebar Toggle Button (Visible on Small Screens) */}
+        <Button
+          className="sidebar-toggle d-lg-none"
+          onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+        >
+          <FaBars />
+        </Button>
+
+        {/* Sidebar (Hidden on Small Screens, Visible on Large Screens) */}
+        <div className={`sidebar-container ${isSidebarOpen ? "open" : ""}`}>
+          <Sidebar />
+        </div>
+
+        {/* Product List (Takes Full Width on Small Screens) */}
+        <div className="product-list-container">
+          <ProductList chosenProducts={chosenProducts} />
+        </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default HomeContent
+export default HomeContent;

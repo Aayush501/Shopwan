@@ -1,0 +1,80 @@
+/* Sticky Category Tabs */
+.sticky-category {
+    position: sticky;
+    top: 0;
+    background: white;
+    z-index: 1000;
+    padding: 10px 0;
+    border-bottom: 2px solid #ddd;
+    overflow-x: auto; /* Scrollable if needed */
+    white-space: nowrap;
+  }
+  
+  /* Sidebar Styling */
+  .sidebar-container {
+    position: sticky;
+    top: 60px;
+    height: 100vh;
+    width: 250px; /* Fixed width */
+    background: #f8f9fa;
+    padding: 15px;
+    overflow-y: auto;
+    border-right: 2px solid #ddd;
+    flex-shrink: 0; /* Prevent shrinking */
+  }
+  
+  /* Sidebar Hidden by Default on Small Screens */
+  @media (max-width: 992px) {
+    .sidebar-container {
+      position: fixed;
+      top: 0;
+      left: -100%; /* Hide Sidebar */
+      width: 250px;
+      height: 100vh;
+      background: #fff;
+      transition: left 0.3s ease-in-out;
+      z-index: 1050;
+      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+    }
+    .sidebar-container.open {
+      left: 0; /* Show Sidebar */
+    }
+  }
+  
+  /* Container for Sidebar + Product List */
+  .content-container {
+    display: flex;
+    flex-wrap: nowrap; /* Prevent wrapping */
+    width: 100%;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+  }
+  
+  /* Product List Adjusted */
+  .product-list-container {
+    flex-grow: 1; /* Take remaining space */
+    width: calc(100% - 250px); /* Ensure it doesn't exceed screen */
+    overflow-x: hidden;
+    padding-left: 10px;
+  }
+  
+  /* Full Width for Product List on Small Screens */
+  @media (max-width: 992px) {
+    .product-list-container {
+      width: 100%;
+      margin-left: 0;
+    }
+  }
+  
+  /* Sidebar Toggle Button */
+  .sidebar-toggle {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    z-index: 1100;
+    background: #4635B1;
+    color: white;
+    border: none;
+    padding: 10px 12px;
+    border-radius: 5px;
+  }
+  

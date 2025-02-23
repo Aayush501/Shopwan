@@ -1,0 +1,25 @@
+/* Ensure products don’t overlap */
+.all-products-container {
+    padding: 20px;
+  }
+  
+  /* Center the loading spinner */
+  .loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+  }
+  
+  /* Ensure all product cards align properly */
+  .row {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  
+  /* Adjust spacing between cards */
+  .g-4 {
+    --bs-gutter-x: 1rem; /* Space between columns */
+    --bs-gutter-y: 1.5rem; /* Space between rows */
+  }
+  

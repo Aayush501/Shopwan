@@ -1,0 +1,52 @@
+/* Responsive Product Card */
+.product-card {
+    width: 100%;
+    max-width: 260px; /* Limits max width */
+    border: 1px solid #4635B1;
+    background: #FFFBCA;
+    margin: auto;
+}
+
+/* Image Styling */
+.product-image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+/* Title & Description */
+.product-title {
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.product-description {
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+/* Price Alignment */
+.price {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #B771E5;
+}
+
+/* Buttons */
+.action-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Icon Adjustments */
+.icon {
+    margin-top: 2px;
+}
+
+/* Responsive Design */
+@media (max-width: 576px) { /* Mobile */
+    .product-card {
+        max-width: 90%;
+    }
+}

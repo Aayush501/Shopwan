@@ -1,0 +1,55 @@
+/* Category Tabs Container */
+.category-tabs-container {
+    padding: 10px 0;
+    border-bottom: 2px solid #ddd;
+  }
+  
+  /* Responsive Tabs */
+  .category-tabs-container .nav {
+    display: flex;
+    flex-wrap: nowrap; /* Prevent wrapping */
+    overflow-x: auto; /* Allow horizontal scrolling */
+    white-space: nowrap; /* Prevent text from wrapping */
+    scrollbar-width: thin; /* Thin scrollbar */
+    scrollbar-color: #4635B1 #f0f0f0;
+  }
+  
+  /* Hide Scrollbar for WebKit Browsers */
+  .category-tabs-container .nav::-webkit-scrollbar {
+    height: 3px;
+  }
+  .category-tabs-container .nav::-webkit-scrollbar-track {
+    background: #f0f0f0;
+  }
+  .category-tabs-container .nav::-webkit-scrollbar-thumb {
+    background: #4635B1;
+    border-radius: 10px;
+  }
+  
+  /* Category Tabs */
+  .category-tab {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #333;
+    padding: 8px 16px;
+    transition: all 0.3s ease;
+  }
+  
+  /* Active Tab */
+  .category-tab.active {
+    background-color: #4635B1 !important;
+    color: white !important;
+    border-radius: 20px;
+  }
+  
+  /* Responsive: Stack Tabs on Small Screens */
+  @media (max-width: 576px) {
+    .category-tabs-container .nav {
+      justify-content: flex-start;
+    }
+    .category-tab {
+      font-size: 0.9rem;
+      padding: 6px 12px;
+    }
+  }
+  
