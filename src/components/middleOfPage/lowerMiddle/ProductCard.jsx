@@ -9,7 +9,7 @@ import './ProductCard.css'; // Import the CSS file
 const ProductCard = ({ postData }) => {
     return (
         <Card className="product-card">
-            <Card.Img variant="top" src={postData.images[0]} alt="Product Image" className="product-image" />
+            <Card.Img variant="top" src="new" alt="Product Image" className="product-image" />
             <Card.Body>
                 <Card.Title className="product-title">{postData.name}</Card.Title>
                 <Card.Text className="product-description">{postData.description}</Card.Text>
