@@ -3,10 +3,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./HomeContent.css"; // ✅ Import CSS for styling
 import CategoryTabs from "./middleMiddle/CategoryTabs";
 import ProductList from "./lowerMiddle/ProductList";
-import ProductsCarousel from "./upperMiddle/ProductsCarousel";
 import Sidebar from "./lowerMiddle/Sidebar";
 import { Button } from "react-bootstrap";
 import { FaBars } from "react-icons/fa"; // Sidebar Toggle Icon
+import ProductsCarousel from "./upperMiddle/ProductsCarousel";
 
 const HomeContent = () => {
   const [chosenProducts, setChosenProducts] = useState("All");
@@ -24,7 +24,7 @@ const HomeContent = () => {
   return (
     <>
       {/* Products Carousel */}
-      <div className="my-2">
+      <div className="carousel-container my-2">
         <ProductsCarousel />
       </div>
 

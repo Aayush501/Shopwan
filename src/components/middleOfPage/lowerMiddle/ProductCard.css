@@ -1,7 +1,7 @@
 /* Responsive Product Card */
 .product-card {
     width: 100%;
-    max-width: 260px; /* Limits max width */
+    max-width: 300px; /* Limits max width */
     border: 1px solid #4635B1;
     background: #FFFBCA;
     margin: auto;

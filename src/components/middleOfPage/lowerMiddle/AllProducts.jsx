@@ -32,7 +32,7 @@ const AllProducts = () => {
           </Spinner>
         </div>
       ) : (
-        <Row className="g-4 justify-content-center">
+        <Row className="g-0 justify-content-center">
           {posts.map((post, index) => (
             <Col key={index} xs={12} sm={6} md={4} lg={3} xl={2} className="d-flex">
               <ProductCard postData={post} />
