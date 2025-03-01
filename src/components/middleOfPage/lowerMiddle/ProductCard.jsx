@@ -17,43 +17,49 @@ const ProductCard = ({ postData }) => {
 
   const addToCart = async () => {
     if (isSignedIn && user) {
-        console.log(postData.uid + " " + user.primaryEmailAddress.emailAddress);
-        try {
-            const response = await axios.post(addToCartAPI, 
-                { 
-                  productId: postData.uid,
-                  email : user.primaryEmailAddress.emailAddress
-                } 
-            );
-            alert(response.data.message);
-        } catch (error) {
-            console.error("Error adding product to cart", error); 
-            alert(error.response?.data?.message || "Failed to add product to cart");
-        }
-    }
-};
-
-  
-const addToWishlist = async () => {
-  if (isSignedIn && user) {
+      console.log(postData.uid + " " + user.primaryEmailAddress.emailAddress);
       try {
-          const response = await axios.post(addToWishlistAPI, 
-            { 
-              productId: postData.uid,
-              email : user.primaryEmailAddress.emailAddress
-            } 
-          );
-          alert(response.data.message);
+        const response = await axios.post(addToCartAPI,
+          {
+            productId: postData.uid,
+            email: user.primaryEmailAddress.emailAddress
+          }
+        );
+        alert(response.data.message);
       } catch (error) {
-          console.error("Error adding product to wishlist", error); 
-          alert(error.response?.data?.message || "Failed to add product to wishlist");
+        console.error("Error adding product to cart", error);
+        alert(error.response?.data?.message || "Failed to add product to cart");
       }
-  }
-};
+    }
+  };
+
+
+  const addToWishlist = async () => {
+    if (isSignedIn && user) {
+      try {
+        const response = await axios.post(addToWishlistAPI,
+          {
+            productId: postData.uid,
+            email: user.primaryEmailAddress.emailAddress
+          }
+        );
+        alert(response.data.message);
+      } catch (error) {
+        console.error("Error adding product to wishlist", error);
+        alert(error.response?.data?.message || "Failed to add product to wishlist");
+      }
+    }
+  };
 
   return (
     <Card style={{ width: "18rem", border: "1px solid #4635B1", background: "#FFFBCA" }}>
-      <Card.Img variant="top" src={postData.images[0]} alt="Product Image" style={{ width: "100%", height: "auto", objectFit: "cover" }} />
+      <Card.Img
+        variant="top"
+        src={`${import.meta.env.VITE_SERVER_URL}${postData.images[0]}`}
+        alt="Product Image"
+        style={{ width: "100%", height: "auto", objectFit: "cover" }}
+      />
+
       <Card.Body>
         <Card.Title style={{ fontSize: "1rem", fontWeight: "bold", textAlign: "center" }}>
           {postData.name}
