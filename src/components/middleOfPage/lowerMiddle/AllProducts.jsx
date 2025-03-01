@@ -22,7 +22,7 @@ const AllProducts = () => {
         setLoading(false); // Stop loading on error
       });
   }, []); // Runs once when component mounts
-
+ 
   return (
     <Container fluid className="all-products-container">
       {loading ? (

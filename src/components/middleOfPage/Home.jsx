@@ -9,8 +9,8 @@ const Home = () => {
     const homeStyle ={
         marginBottom: '10px'
     }
+
     const [cart, setCart] = useState(false);
-    const cartItems = [];
 
     const [wishlist, setwishlist] = useState(false);
     const wishlistItems = [];

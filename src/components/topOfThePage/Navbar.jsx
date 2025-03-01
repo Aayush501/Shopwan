@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
@@ -7,29 +7,30 @@ import { BsBagCheckFill } from "react-icons/bs";
 import { IoSearch } from "react-icons/io5";
 import { BsBagHeartFill } from "react-icons/bs";
 import { useUser, SignInButton, SignUpButton, UserButton } from "@clerk/clerk-react";
+import axios from 'axios'
 
-
-
-//////////
-////////
-///////*
-
-
-/*
-        update user schema and add details to database from clerk
-*/
-
-
-
-///////
-//////
-///////
-
-
+const saveUserAPI = import.meta.env.VITE_SAVE_USER_API;
 
 
 const ResponsiveNavbar = ({cart, setCart, wishlist, setWishlist}) => {
-    const { isSignedIn } = useUser(); // Clerk hook for authentication status
+    const { isSignedIn, user } = useUser(); // Clerk hook for authentication status
+
+    useEffect(() => {
+        if (isSignedIn && user) {
+            const userData = {
+                clerkId: user.id,
+                name: user.fullName,
+                username: user.username || user.id,
+                email: user.primaryEmailAddress.emailAddress,
+                phone: user.primaryPhoneNumber ? user.primaryPhoneNumber.phoneNumber : null,
+                profilePic: user.imageUrl,
+            };
+    
+            axios.post(saveUserAPI, userData)
+                .then(response => console.log("User saved:", response.data))
+                .catch(error => console.error("Error saving user:", error));
+        }
+    }, [isSignedIn, user]);
 
     return (
         <Navbar expand="lg" className="bg-body-tertiary p-2" sticky="top">
@@ -53,8 +54,14 @@ const ResponsiveNavbar = ({cart, setCart, wishlist, setWishlist}) => {
                     {isSignedIn ? (
                         <div className="d-flex align-items-center gap-3">
                             <UserButton afterSignOutUrl="/" />
-                            <BsBagCheckFill size={30} onClick={() => setCart(cart ? false : true)} />
-                            <BsBagHeartFill size={30} onClick={() => setWishlist(wishlist ? false : true)} />
+                            <BsBagCheckFill size={30} onClick={() => {
+                                setCart(cart ? false : true);
+                                setWishlist(false);
+                            }} />
+                            <BsBagHeartFill size={30} onClick={() => {
+                                setWishlist(wishlist ? false : true);
+                                setCart(false);
+                            }} />
                         </div>
                     ) : (
                         <div className="d-flex align-items-center gap-2">

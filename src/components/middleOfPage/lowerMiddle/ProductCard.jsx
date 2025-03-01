@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import { FaCartArrowDown } from "react-icons/fa";
@@ -7,35 +7,53 @@ import { HiDocumentCurrencyRupee } from "react-icons/hi2";
 import { FaHeart } from "react-icons/fa";
 import axios from "axios";
 import "./ProductCard.css";
+import { useUser } from "@clerk/clerk-react";
 
 const addToCartAPI = import.meta.env.VITE_USERCART_API;
 const addToWishlistAPI = import.meta.env.VITE_USERWISHLIST_API;
 
-const ProductCard = ({ postData, setCart }) => {
-  const addToCart = async () => {
-    try {
-      const response = await axios.post(addToCartAPI, { productId: postData.uid });
-      setCart((prevCart) => [...prevCart, postData._id]);
-      alert(response.data.message);
-    } catch (error) {
-      console.error("Error adding product to cart", error);
-      alert(error.response?.data?.message || "Failed to add product to cart");
-    }
-  };
+const ProductCard = ({ postData }) => {
+  const { isSignedIn, user } = useUser();
 
-  const addToWishlist = async () => {
-    try {
-      const response = await axios.post(addToWishlistAPI, { productId: postData.uid });
-      alert(response.data.message);
-    } catch (error) {
-      console.error("Error adding product to wishlist", error);
-      alert(error.response?.data?.message || "Failed to add product to wishlist");
+  const addToCart = async () => {
+    if (isSignedIn && user) {
+        console.log(postData.uid + " " + user.primaryEmailAddress.emailAddress);
+        try {
+            const response = await axios.post(addToCartAPI, 
+                { 
+                  productId: postData.uid,
+                  email : user.primaryEmailAddress.emailAddress
+                } 
+            );
+            alert(response.data.message);
+        } catch (error) {
+            console.error("Error adding product to cart", error); 
+            alert(error.response?.data?.message || "Failed to add product to cart");
+        }
     }
-  };
+};
+
+  
+const addToWishlist = async () => {
+  if (isSignedIn && user) {
+      try {
+          const response = await axios.post(addToWishlistAPI, 
+            { 
+              productId: postData.uid,
+              email : user.primaryEmailAddress.emailAddress
+            } 
+          );
+          alert(response.data.message);
+      } catch (error) {
+          console.error("Error adding product to wishlist", error); 
+          alert(error.response?.data?.message || "Failed to add product to wishlist");
+      }
+  }
+};
 
   return (
     <Card style={{ width: "18rem", border: "1px solid #4635B1", background: "#FFFBCA" }}>
-      <Card.Img variant="top" src={postData.image} alt="Product Image" style={{ width: "100%", height: "auto", objectFit: "cover" }} />
+      <Card.Img variant="top" src={postData.images[0]} alt="Product Image" style={{ width: "100%", height: "auto", objectFit: "cover" }} />
       <Card.Body>
         <Card.Title style={{ fontSize: "1rem", fontWeight: "bold", textAlign: "center" }}>
           {postData.name}
