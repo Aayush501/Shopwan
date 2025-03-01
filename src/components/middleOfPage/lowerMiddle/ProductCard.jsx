@@ -53,7 +53,7 @@ const addToWishlist = async () => {
 
   return (
     <Card style={{ width: "18rem", border: "1px solid #4635B1", background: "#FFFBCA" }}>
-      <Card.Img variant="top" src={postData.images[0]} alt="Product Image" style={{ width: "100%", height: "auto", objectFit: "cover" }} />
+      <Card.Img variant="top" src={postData.image} alt="Product Image" style={{ width: "100%", height: "auto", objectFit: "cover" }} />
       <Card.Body>
         <Card.Title style={{ fontSize: "1rem", fontWeight: "bold", textAlign: "center" }}>
           {postData.name}
