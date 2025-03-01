@@ -8,7 +8,7 @@ import { Button } from "react-bootstrap";
 import { FaBars } from "react-icons/fa"; // Sidebar Toggle Icon
 import ProductsCarousel from "./upperMiddle/ProductsCarousel";
 
-const HomeContent = () => {
+const HomeContent = () => { 
   const [chosenProducts, setChosenProducts] = useState("All");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 

@@ -4,16 +4,20 @@ import HomeContent from './HomeContent'
 import Footer from '../Footer'
 import UserCart from './UserCart'
 import UserWishList from './UserWishList'
+import { useUser } from '@clerk/clerk-react'
 
 const Home = () => {
     const homeStyle ={
         marginBottom: '10px'
     }
 
+    const user = useUser();
+
     const [cart, setCart] = useState(false);
+    const cartItems = user.cart;
 
     const [wishlist, setwishlist] = useState(false);
-    const wishlistItems = [];
+    const wishlistItems = user.wishlist;
     
     return (
         <>
