@@ -58,9 +58,9 @@ const ProductCard = ({ postData, product, setProduct }) => {
           variant="top"
           src={`${import.meta.env.VITE_SERVER_URL}${postData.images[0]}`}
           alt="Product Image"
-          style={{ width: "100%", height: "auto", objectFit: "cover" }
-          }
+          style={{ width: "100%", height: "auto", objectFit: "cover" }}
         />
+
       </div>
       <Card.Body>
         <Card.Title style={{ fontSize: "1rem", fontWeight: "bold", textAlign: "center" }}>
