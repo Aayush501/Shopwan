@@ -60,8 +60,7 @@ const ProductCard = ({ postData, product, setProduct }) => {
           alt="Product Image"
           style={{ width: "100%", height: "auto", objectFit: "cover" }
           }
-        /> // just did this but still not Visible
-
+        />
       </div>
       <Card.Body>
         <Card.Title style={{ fontSize: "1rem", fontWeight: "bold", textAlign: "center" }}>
