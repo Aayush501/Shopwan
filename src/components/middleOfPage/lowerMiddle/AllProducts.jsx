@@ -6,7 +6,7 @@ import './AllProducts.css'; // Import CSS for styling
 
 const allProductsApi = import.meta.env.VITE_ALL_PRODUCTS;
 
-const AllProducts = () => {
+const AllProducts = ({product, setProduuct}) => {
   const [posts, setPosts] = useState([]); // Store fetched data
   const [loading, setLoading] = useState(true); // Loading state
 
@@ -35,7 +35,7 @@ const AllProducts = () => {
         <Row className="g-0 justify-content-center">
           {posts.map((post, index) => (
             <Col key={index} xs={12} sm={6} md={4} lg={3} xl={2} className="d-flex">
-              <ProductCard postData={post} />
+              <ProductCard postData={post} product={product} setProduct={setProduuct} />
             </Col>
           ))}
         </Row>

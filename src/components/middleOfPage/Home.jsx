@@ -4,6 +4,7 @@ import HomeContent from './HomeContent'
 import Footer from '../Footer'
 import UserCart from './UserCart'
 import UserWishList from './UserWishList'
+import ProductPage from './ProductPage'
 import { useUser } from '@clerk/clerk-react'
 
 const Home = () => {
@@ -18,6 +19,8 @@ const Home = () => {
 
     const [wishlist, setwishlist] = useState(false);
     const wishlistItems = user.wishlist;
+
+    const [productInPage, setProductInPage] = useState();
     
     return (
         <>
@@ -25,7 +28,7 @@ const Home = () => {
             <Navbar cart={cart} setCart={setCart} wishlist={wishlist} setWishlist={setwishlist}></Navbar>
         </div>
         <div style={homeStyle} className='w-100 d-flex flex-column justify-content-center align-items-center'>
-            {!cart && !wishlist? <HomeContent></HomeContent> :cart? <UserCart cartItems={cartItems} cart={cart} setCart={setCart}></UserCart> : <UserWishList wishlistItems={wishlistItems} wishlist={wishlist} setWishlist={setwishlist}></UserWishList>}
+            {!cart && !wishlist? <HomeContent product={productInPage} setProduct={setProductInPage}></HomeContent> :cart? <UserCart cartItems={cartItems} cart={cart} setCart={setCart}></UserCart> : <UserWishList wishlistItems={wishlistItems} wishlist={wishlist} setWishlist={setwishlist}></UserWishList>}
         </div>
         <div style={homeStyle}>
             <Footer></Footer>

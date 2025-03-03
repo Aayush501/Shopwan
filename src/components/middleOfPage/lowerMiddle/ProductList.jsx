@@ -4,7 +4,7 @@ import ClothesList from './ClothesList'
 import JewelleriesList from './JewelleriesList'
 import FootwaresList from './FootwaresList'
 
-const ProductList = ({ chosenProducts }) => {
+const ProductList = ({ chosenProducts, product, setProduct }) => {
   if (chosenProducts === "Clothes") {
     return (
       <>
@@ -28,7 +28,7 @@ const ProductList = ({ chosenProducts }) => {
   }
   return (
     <>
-      <AllProducts></AllProducts>
+      <AllProducts product={product} setProduuct={setProduct}></AllProducts>
     </>
   )
 }

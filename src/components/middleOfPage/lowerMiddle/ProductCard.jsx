@@ -12,7 +12,7 @@ import { useUser } from "@clerk/clerk-react";
 const addToCartAPI = import.meta.env.VITE_USERCART_API;
 const addToWishlistAPI = import.meta.env.VITE_USERWISHLIST_API;
 
-const ProductCard = ({ postData }) => {
+const ProductCard = ({ postData, product, setProduct }) => {
   const { isSignedIn, user } = useUser();
 
   const addToCart = async () => {
@@ -53,13 +53,16 @@ const ProductCard = ({ postData }) => {
 
   return (
     <Card style={{ width: "18rem", border: "1px solid #4635B1", background: "#FFFBCA" }}>
-      <Card.Img
-        variant="top"
-        src={`${import.meta.env.VITE_SERVER_URL}${postData.images[0]}`}
-        alt="Product Image"
-        style={{ width: "100%", height: "auto", objectFit: "cover" }}
-      />
+      <div onClick={setProduct(postData)}>
+        <Card.Img
+          variant="top"
+          src={`${import.meta.env.VITE_SERVER_URL}${postData.images[0]}`}
+          alt="Product Image"
+          style={{ width: "100%", height: "auto", objectFit: "cover" }
+          }
+        /> // just did this but still not Visible
 
+      </div>
       <Card.Body>
         <Card.Title style={{ fontSize: "1rem", fontWeight: "bold", textAlign: "center" }}>
           {postData.name}
