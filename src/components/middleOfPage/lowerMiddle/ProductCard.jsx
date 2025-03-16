@@ -56,7 +56,7 @@ const ProductCard = ({ postData, product, setProduct }) => {
       <div onClick={setProduct(postData)}>
         <Card.Img
           variant="top"
-          src={`${import.meta.env.VITE_SERVER_URL}${postData.images[0]}`}
+          src={`${import.meta.env.VITE_SERVER_URL}/uploads/${postData.images[0]}`}
           alt="Product Image"
           style={{ width: "100%", height: "auto", objectFit: "cover" }}
         />
