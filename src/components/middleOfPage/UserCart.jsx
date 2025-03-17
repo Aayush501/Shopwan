@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import ProductCard from "./lowerMiddle/ProductCard";
 import { Container, Row, Col, Button, Card } from "react-bootstrap";
 
