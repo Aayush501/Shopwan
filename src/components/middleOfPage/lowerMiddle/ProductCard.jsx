@@ -17,6 +17,7 @@ const ProductCard = ({ postData, clickedProduct, setClickedProduct, productPageP
   const addToCart = async () => {
     if (isSignedIn && user) {
       try {
+        console.log(postData);
         const response = await axios.post(addToCartAPI, {
           productId: postData.uid,
           email: user.primaryEmailAddress.emailAddress,
