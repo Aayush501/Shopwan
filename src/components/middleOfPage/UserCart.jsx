@@ -15,7 +15,8 @@ const CartPage = ({ user, cart, setCart, clickedProduct, setClickedProduct, prod
   useEffect(() => {
     const fetchCart = async () => {
       try {
-        const userEmail = user.email; // Replace with actual user email
+        const userEmail = user.primaryEmailAddress.emailAddress; // Replace with actual user email
+        console.log("userEmail : "+userEmail);
         const response = await axios.get(apiUrl, {
           params: { email: userEmail },
         });
