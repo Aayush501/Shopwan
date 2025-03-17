@@ -11,7 +11,7 @@ import { useUser } from "@clerk/clerk-react";
 const addToCartAPI = import.meta.env.VITE_USERCART_API;
 const addToWishlistAPI = import.meta.env.VITE_USERWISHLIST_API;
 
-const ProductCard = ({ postData, product, setProduct }) => {
+const ProductCard = ({ postData, clickedProduct, setClickedProduct, productPageProduct, setProductPageProduct }) => {
   const { isSignedIn, user } = useUser();
 
   const addToCart = async () => {
@@ -45,13 +45,17 @@ const ProductCard = ({ postData, product, setProduct }) => {
   };
 
   return (
-    <Card style={{ width: "18rem", border: "1px solid #4635B1", background: "#FFFBCA" }}>
-      <div onClick={setProduct(postData)}>
+    <Card style={{ width: "18rem", border: "1px solid #4635B1", background: "#FFFBCA" }} onClick={() => {
+      setClickedProduct(true);
+      setProductPageProduct(postData);
+    }}>
+      <div onClick={setProductPageProduct(postData)}>
         <Card.Img
           variant="top"
           src={postData.images[0]} // Direct Cloudinary URL stored in DB
           alt="Product Image"
           style={{ width: "100%", height: "auto", objectFit: "cover" }}
+          onClick={setProductPageProduct(postData)}
         />
       </div>
       <Card.Body>

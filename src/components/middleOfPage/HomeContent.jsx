@@ -8,7 +8,7 @@ import { Button } from "react-bootstrap";
 import { FaBars } from "react-icons/fa"; // Sidebar Toggle Icon
 import ProductsCarousel from "./upperMiddle/ProductsCarousel";
 
-const HomeContent = ({product, setProduct}) => { 
+const HomeContent = ({clickedProduct, setClickedProduct, productPageProduct, setProductPageProduct}) => { 
   const [chosenProducts, setChosenProducts] = useState("All");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
@@ -54,7 +54,7 @@ const HomeContent = ({product, setProduct}) => {
 
         {/* Product List (Takes Full Width on Small Screens) */}
         <div className="product-list-container">
-          <ProductList chosenProducts={chosenProducts} product={product} setProduct={setProduct}/>
+          <ProductList chosenProducts={chosenProducts} clickedProduct={clickedProduct} setClickedProduct={setClickedProduct} productPageProduct={productPageProduct} setProductPageProduct={setProductPageProduct}/>
         </div>
       </div>
     </>
