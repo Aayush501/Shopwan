@@ -5,7 +5,8 @@ import axios from "axios";
 
 const CartPage = ({ user, cart, setCart, clickedProduct, setClickedProduct, productPageProduct, setProductPageProduct }) => {
 
-  console.log("User : " + user);
+  console.log("User : ");
+  console.log(user);
   console.log("Cart : "+cart);
   console.log("clickedProduct : "+clickedProduct);
   console.log("productPageProduct : "+productPageProduct);
@@ -19,7 +20,7 @@ const CartPage = ({ user, cart, setCart, clickedProduct, setClickedProduct, prod
         const userEmail = user.primaryEmailAddress.emailAddress; // Replace with actual user email
         console.log("userEmail : "+userEmail);
         const response = await axios.get(apiUrl, {
-          params: { email: userEmail },
+          params: { email: userEmail, },
         });
         console.log(response.data.cart);
         setCartItems(response.data.cart);
