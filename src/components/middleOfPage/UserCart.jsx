@@ -19,9 +19,7 @@ const CartPage = ({ user, cart, setCart, clickedProduct, setClickedProduct, prod
       try {
         const userEmail = user.primaryEmailAddress.emailAddress; // Replace with actual user email
         console.log("userEmail : "+userEmail);
-        const response = await axios.get(apiUrl, {
-          params: { email: userEmail, },
-        });
+        const response = await axios.get(`${apiUrl}?email=${userEmail}`);
         console.log(response.data.cart);
         setCartItems(response.data.cart);
       } catch (error) {
