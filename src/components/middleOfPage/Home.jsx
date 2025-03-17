@@ -31,9 +31,9 @@ const Home = () => {
             productPageProduct={productPageProduct}
             setProductPageProduct={setProductPageProduct}
           />
-        ) : cart ? (
+        ) : cart && !wishlist && !clickedProduct ? (
           <UserCart cartItems={user.cart} cart={cart} setCart={setCart} />
-        ) : wishlist ? (
+        ) : wishlist && !cart && !clickedProduct ? (
           <UserWishList wishlistItems={user.wishlist} wishlist={wishlist} setWishlist={setWishlist} />
         ) : (
           <ProductPage product={productPageProduct} user={user} />
