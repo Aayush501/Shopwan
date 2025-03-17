@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import ProductCard from "./lowerMiddle/ProductCard";
 import { Container, Row, Col, Button, Card } from "react-bootstrap";
+import axios from "axios";
 
 const CartPage = ({ user, cart, setCart, clickedProduct, setClickedProduct, productPageProduct, setProductPageProduct }) => {
 
