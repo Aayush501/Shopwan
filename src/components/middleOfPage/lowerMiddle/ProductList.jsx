@@ -4,7 +4,7 @@ import ClothesList from './ClothesList'
 import JewelleriesList from './JewelleriesList'
 import FootwaresList from './FootwaresList'
 
-const ProductList = ({ chosenProducts, product, setProduct, clickedProduct, setClickedProduct, productPageProduct, setProductPageProduct }) => {
+const ProductList = ({ chosenProducts, clickedProduct, setClickedProduct, productPageProduct, setProductPageProduct }) => {
   if (chosenProducts === "Clothes") {
     return (
       <>
