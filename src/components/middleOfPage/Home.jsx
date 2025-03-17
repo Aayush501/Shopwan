@@ -6,6 +6,7 @@ import UserCart from "./UserCart";
 import UserWishList from "./UserWishList";
 import ProductPage from "./ProductPage";
 import { useUser } from "@clerk/clerk-react";
+import axios from "axios";
 
 const Home = () => {
   const homeStyle = { marginBottom: "10px" };
@@ -16,10 +17,6 @@ const Home = () => {
   const [wishlist, setWishlist] = useState(false);
   const [clickedProduct, setClickedProduct] = useState(false);
   const [productPageProduct, setProductPageProduct] = useState(null);
-
-//   useEffect(() => {
-//     console.log("cart = " + cart);
-//   }, [cart]);
 
   return (
     <>
@@ -36,7 +33,15 @@ const Home = () => {
             setProductPageProduct={setProductPageProduct}
           />
         ) : cart && !wishlist && !clickedProduct ? (
-          <UserCart cartItems={[]} cart={cart} setCart={setCart} />
+          <UserCart 
+            user={user} 
+            cart={cart} 
+            setCart={setCart} 
+            clickedProduct={clickedProduct}
+            setClickedProduct={setClickedProduct}
+            productPageProduct={productPageProduct}
+            setProductPageProduct={setProductPageProduct}
+          />
         ) : wishlist && !cart && !clickedProduct ? (
           <UserWishList wishlistItems={[]} wishlist={wishlist} setWishlist={setWishlist} />
         ) : (

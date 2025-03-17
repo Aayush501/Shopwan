@@ -1,25 +1,40 @@
 import React from "react";
+import ProductCard from "./lowerMiddle/ProductCard";
 import { Container, Row, Col, Button, Card } from "react-bootstrap";
 
-const CartPage = ({ cartItems, cart, setCart }) => {
+const CartPage = ({ user, cart, setCart, clickedProduct, setClickedProduct, productPageProduct, setProductPageProduct }) => {
+
+  const [cartItems, setCartItems] = useState([]);
+  const apiUrl = import.meta.env.VITE_USER_CART_ITEMS;
+
+  useEffect(() => {
+    const fetchCart = async () => {
+      try {
+        const userEmail = user.email; // Replace with actual user email
+        const response = await axios.get(apiUrl, {
+          params: { email: userEmail },
+        });
+        console.log(response.data.cart);
+        setCartItems(response.data.cart);
+      } catch (error) {
+        console.error("Error fetching cart items:", error);
+      }
+    };
+
+    fetchCart();
+  }, []);
 
   return (
     <Container className="mt-4">
       <h2 className="text-center mb-4">Your Cart</h2>
       {cartItems.length > 0 ? (
-        <Row>
-          {cartItems.map((item, index) => (
-            <Col md={4} key={index} className="mb-4">
-              <Card>
-                <Card.Img variant="top" src={item.image} alt={item.name} />
-                <Card.Body>
-                  <Card.Title>{item.name}</Card.Title>
-                  <Card.Text>Price: ${item.price}</Card.Text>
-                </Card.Body>
-              </Card>
-            </Col>
-          ))}
-        </Row>
+        <Row className="g-0 justify-content-center">
+        {cartItems.map((post, index) => (
+          <Col key={index} xs={12} sm={6} md={4} lg={3} xl={2} className="d-flex">
+            <ProductCard postData={post} clickedProduct={clickedProduct} setClickedProduct={setClickedProduct} productPageProduct={productPageProduct} setProductPageProduct={setProductPageProduct} />
+          </Col>
+        ))}
+      </Row>
       ) : (
         <div className="text-center mt-5">
           <h4 className="text-muted">You Have Not Added Anything In Your Cart</h4>
