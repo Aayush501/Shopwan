@@ -17,6 +17,10 @@ const Home = () => {
   const [clickedProduct, setClickedProduct] = useState(false);
   const [productPageProduct, setProductPageProduct] = useState(null);
 
+  useEffect(() => {
+    console.log("cart = " + cart);
+  }, [cart]);
+
   return (
     <>
       <div style={homeStyle}>
