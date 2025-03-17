@@ -1,40 +1,50 @@
-import React, { useState } from 'react'
-import Navbar from '../topOfThePage/Navbar'
-import HomeContent from './HomeContent'
-import Footer from '../Footer'
-import UserCart from './UserCart'
-import UserWishList from './UserWishList'
-import ProductPage from './ProductPage'
-import { useUser } from '@clerk/clerk-react'
+import React, { useState } from "react";
+import Navbar from "../topOfThePage/Navbar";
+import HomeContent from "./HomeContent";
+import Footer from "../Footer";
+import UserCart from "./UserCart";
+import UserWishList from "./UserWishList";
+import ProductPage from "./ProductPage";
+import { useUser } from "@clerk/clerk-react";
 
 const Home = () => {
-    const homeStyle ={
-        marginBottom: '10px'
-    }
+  const homeStyle = { marginBottom: "10px" };
+  const { user } = useUser();
 
-    const user = useUser();
+  // State variables
+  const [cart, setCart] = useState(false);
+  const [wishlist, setWishlist] = useState(false);
+  const [clickedProduct, setClickedProduct] = useState(false);
+  const [productPageProduct, setProductPageProduct] = useState(null);
 
-    const [cart, setCart] = useState(false);
-    const cartItems = user.cart;
+  return (
+    <>
+      <div style={homeStyle}>
+        <Navbar cart={cart} setCart={setCart} wishlist={wishlist} setWishlist={setWishlist} />
+      </div>
 
-    const [wishlist, setwishlist] = useState(false);
-    const wishlistItems = user.wishlist;
+      <div style={homeStyle} className="w-100 d-flex flex-column justify-content-center align-items-center">
+        {!cart && !wishlist && !clickedProduct ? (
+          <HomeContent
+            clickedProduct={clickedProduct}
+            setClickedProduct={setClickedProduct}
+            productPageProduct={productPageProduct}
+            setProductPageProduct={setProductPageProduct}
+          />
+        ) : cart ? (
+          <UserCart cartItems={user.cart} cart={cart} setCart={setCart} />
+        ) : wishlist ? (
+          <UserWishList wishlistItems={user.wishlist} wishlist={wishlist} setWishlist={setWishlist} />
+        ) : (
+          <ProductPage product={productPageProduct} user={user} />
+        )}
+      </div>
 
-    const [productInPage, setProductInPage] = useState();
-    
-    return (
-        <>
-        <div style={homeStyle}>
-            <Navbar cart={cart} setCart={setCart} wishlist={wishlist} setWishlist={setwishlist}></Navbar>
-        </div>
-        <div style={homeStyle} className='w-100 d-flex flex-column justify-content-center align-items-center'>
-            {!cart && !wishlist? <HomeContent product={productInPage} setProduct={setProductInPage}></HomeContent> :cart? <UserCart cartItems={cartItems} cart={cart} setCart={setCart}></UserCart> : <UserWishList wishlistItems={wishlistItems} wishlist={wishlist} setWishlist={setwishlist}></UserWishList>}
-        </div>
-        <div style={homeStyle}>
-            <Footer></Footer>
-        </div>
-        </>
-    )
-}
+      <div style={homeStyle}>
+        <Footer />
+      </div>
+    </>
+  );
+};
 
-export default Home
+export default Home;
