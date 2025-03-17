@@ -4,6 +4,11 @@ import { Container, Row, Col, Button, Card } from "react-bootstrap";
 
 const CartPage = ({ user, cart, setCart, clickedProduct, setClickedProduct, productPageProduct, setProductPageProduct }) => {
 
+  console.log("User : " + user);
+  console.log("Cart : "+cart);
+  console.log("clickedProduct : "+clickedProduct);
+  console.log("productPageProduct : "+productPageProduct);
+
   const [cartItems, setCartItems] = useState([]);
   const apiUrl = import.meta.env.VITE_USER_CART_ITEMS;
 
@@ -23,6 +28,8 @@ const CartPage = ({ user, cart, setCart, clickedProduct, setClickedProduct, prod
 
     fetchCart();
   }, []);
+
+  console.log("cartItems : "+cartItems);
 
   return (
     <Container className="mt-4">
