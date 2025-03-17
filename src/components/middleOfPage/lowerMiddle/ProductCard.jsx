@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
-import { FaCartArrowDown } from "react-icons/fa";
+import { FaCartArrowDown, FaHeart } from "react-icons/fa";
 import { AiFillCarryOut } from "react-icons/ai";
 import { HiDocumentCurrencyRupee } from "react-icons/hi2";
-import { FaHeart } from "react-icons/fa";
 import axios from "axios";
 import "./ProductCard.css";
 import { useUser } from "@clerk/clerk-react";
@@ -17,14 +16,11 @@ const ProductCard = ({ postData, product, setProduct }) => {
 
   const addToCart = async () => {
     if (isSignedIn && user) {
-      console.log(postData.uid + " " + user.primaryEmailAddress.emailAddress);
       try {
-        const response = await axios.post(addToCartAPI,
-          {
-            productId: postData.uid,
-            email: user.primaryEmailAddress.emailAddress
-          }
-        );
+        const response = await axios.post(addToCartAPI, {
+          productId: postData.uid,
+          email: user.primaryEmailAddress.emailAddress,
+        });
         alert(response.data.message);
       } catch (error) {
         console.error("Error adding product to cart", error);
@@ -33,16 +29,13 @@ const ProductCard = ({ postData, product, setProduct }) => {
     }
   };
 
-
   const addToWishlist = async () => {
     if (isSignedIn && user) {
       try {
-        const response = await axios.post(addToWishlistAPI,
-          {
-            productId: postData.uid,
-            email: user.primaryEmailAddress.emailAddress
-          }
-        );
+        const response = await axios.post(addToWishlistAPI, {
+          productId: postData.uid,
+          email: user.primaryEmailAddress.emailAddress,
+        });
         alert(response.data.message);
       } catch (error) {
         console.error("Error adding product to wishlist", error);
@@ -56,11 +49,10 @@ const ProductCard = ({ postData, product, setProduct }) => {
       <div onClick={setProduct(postData)}>
         <Card.Img
           variant="top"
-          src={`${import.meta.env.VITE_SERVER_URL}/uploads/${postData.images[0]}`}
+          src={postData.images[0]} // Direct Cloudinary URL stored in DB
           alt="Product Image"
           style={{ width: "100%", height: "auto", objectFit: "cover" }}
         />
-
       </div>
       <Card.Body>
         <Card.Title style={{ fontSize: "1rem", fontWeight: "bold", textAlign: "center" }}>
