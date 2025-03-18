@@ -12,6 +12,7 @@ const CartPage = ({ user, cart, setCart, clickedProduct, setClickedProduct, prod
   console.log("productPageProduct : "+productPageProduct);
 
   const [cartItems, setCartItems] = useState([]);
+  console.log(import.meta.env);
   const apiUrl = import.meta.env.VITE_USER_CART_ITEMS;
   console.log(apiUrl);
   
