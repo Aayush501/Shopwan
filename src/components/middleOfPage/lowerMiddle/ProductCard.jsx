@@ -11,7 +11,7 @@ import { useUser } from "@clerk/clerk-react";
 const addToCartAPI = import.meta.env.VITE_USERCART_API;
 const addToWishlistAPI = import.meta.env.VITE_USERWISHLIST_API;
 
-const ProductCard = ({ postData, clickedProduct, setClickedProduct, productPageProduct, setProductPageProduct }) => {
+const ProductCard = ({ifCartPage, postData, clickedProduct, setClickedProduct, productPageProduct, setProductPageProduct }) => {
   const { isSignedIn, user } = useUser();
 
   const addToCart = async () => {
@@ -30,6 +30,10 @@ const ProductCard = ({ postData, clickedProduct, setClickedProduct, productPageP
     }
   };
 
+  const removeFromCart = () => {
+    alert("Feature under development");
+  }
+
   const addToWishlist = async () => {
     if (isSignedIn && user) {
       try {
@@ -46,19 +50,17 @@ const ProductCard = ({ postData, clickedProduct, setClickedProduct, productPageP
   };
 
   return (
-    <Card style={{ width: "18rem", border: "1px solid #4635B1", background: "#FFFBCA" }} onClick={() => {
-      setClickedProduct(true);
-      setProductPageProduct(postData);
-    }}>
-      <div onClick={setProductPageProduct(postData)}>
-        <Card.Img
-          variant="top"
-          src={postData.images[0]} // Direct Cloudinary URL stored in DB
-          alt="Product Image"
-          style={{ width: "100%", height: "auto", objectFit: "cover" }}
-          onClick={setProductPageProduct(postData)}
-        />
-      </div>
+    <Card style={{ width: "18rem", border: "1px solid #4635B1", background: "#FFFBCA" }} >
+      <Card.Img
+        variant="top"
+        src={postData.images[0]} // Direct Cloudinary URL stored in DB
+        alt="Product Image"
+        style={{ width: "100%", height: "auto", objectFit: "cover" }}
+        onClick={() => {
+          setClickedProduct(true);
+          setProductPageProduct(postData);
+        }}
+      />
       <Card.Body>
         <Card.Title style={{ fontSize: "1rem", fontWeight: "bold", textAlign: "center" }}>
           {postData.name}
@@ -76,12 +78,21 @@ const ProductCard = ({ postData, clickedProduct, setClickedProduct, productPageP
         <Button variant="primary" className="d-flex gap-2 btn-sm my-1">
           BUY <AiFillCarryOut fill="yellow" />
         </Button>
-        <Button variant="primary" className="d-flex gap-2 btn-sm my-1" onClick={addToCart}>
-          ADD TO CART <FaCartArrowDown fill="yellow" />
-        </Button>
-        <Button variant="danger" className="d-flex gap-2 btn-sm my-1" onClick={addToWishlist}>
-          ADD TO WISHLIST <FaHeart fill="white" />
-        </Button>
+        {
+          !ifCartPage ? <Button variant="primary" className="d-flex gap-2 btn-sm my-1" onClick={addToCart}>
+                          ADD TO CART <FaCartArrowDown fill="yellow" />
+                        </Button> :
+                        <Button variant="primary" className="d-flex gap-2 btn-sm my-1" onClick={removeFromCart}>
+                          Remove From Cart <FaCartArrowDown fill="yellow" />
+                        </Button>
+        }
+        {
+          !ifCartPage ? <Button variant="danger" className="d-flex gap-2 btn-sm my-1" onClick={addToWishlist}>
+                          ADD TO WISHLIST <FaHeart fill="white" />
+                        </Button> : 
+                        ""
+        }
+
       </Card.Body>
     </Card>
   );

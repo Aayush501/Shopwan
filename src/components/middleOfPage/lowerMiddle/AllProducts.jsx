@@ -35,7 +35,7 @@ const AllProducts = ({ clickedProduct, setClickedProduct, productPageProduct, se
         <Row className="g-0 justify-content-center">
           {posts.map((post, index) => (
             <Col key={index} xs={12} sm={6} md={4} lg={3} xl={2} className="d-flex">
-              <ProductCard postData={post} clickedProduct={clickedProduct} setClickedProduct={setClickedProduct} productPageProduct={productPageProduct} setProductPageProduct={setProductPageProduct} />
+              <ProductCard ifCartPage={false} postData={post} clickedProduct={clickedProduct} setClickedProduct={setClickedProduct} productPageProduct={productPageProduct} setProductPageProduct={setProductPageProduct} />
             </Col>
           ))}
         </Row>
