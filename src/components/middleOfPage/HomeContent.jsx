@@ -3,9 +3,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./HomeContent.css"; // ✅ Import CSS for styling
 import CategoryTabs from "./middleMiddle/CategoryTabs";
 import ProductList from "./lowerMiddle/ProductList";
-import Sidebar from "./lowerMiddle/Sidebar";
-import { Button } from "react-bootstrap";
-import { FaBars } from "react-icons/fa"; // Sidebar Toggle Icon
 import ProductsCarousel from "./upperMiddle/ProductsCarousel";
 
 const HomeContent = ({clickedProduct, setClickedProduct, productPageProduct, setProductPageProduct}) => { 
@@ -39,19 +36,6 @@ const HomeContent = ({clickedProduct, setClickedProduct, productPageProduct, set
 
       {/* Sidebar + Product List Container */}
       <div className="content-container">
-        {/* Sidebar Toggle Button (Visible on Small Screens) */}
-        <Button
-          className="sidebar-toggle d-lg-none"
-          onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-        >
-          <FaBars />
-        </Button>
-
-        {/* Sidebar (Hidden on Small Screens, Visible on Large Screens) */}
-        <div className={`sidebar-container ${isSidebarOpen ? "open" : ""}`}>
-          <Sidebar />
-        </div>
-
         {/* Product List (Takes Full Width on Small Screens) */}
         <div className="product-list-container">
           <ProductList chosenProducts={chosenProducts} clickedProduct={clickedProduct} setClickedProduct={setClickedProduct} productPageProduct={productPageProduct} setProductPageProduct={setProductPageProduct}/>
