@@ -7,7 +7,6 @@ import ProductsCarousel from "./upperMiddle/ProductsCarousel";
 
 const HomeContent = ({clickedProduct, setClickedProduct, productPageProduct, setProductPageProduct}) => { 
   const [chosenProducts, setChosenProducts] = useState("All");
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   // Close sidebar on screen resize
   useEffect(() => {

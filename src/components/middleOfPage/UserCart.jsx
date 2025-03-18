@@ -13,7 +13,8 @@ const CartPage = ({ user, cart, setCart, clickedProduct, setClickedProduct, prod
 
   const [cartItems, setCartItems] = useState([]);
   const apiUrl = import.meta.env.VITE_USER_CART_ITEMS;
-
+  console.log(apiUrl);
+  
   useEffect(() => {
     const fetchCart = async () => {
       try {
