@@ -38,7 +38,7 @@ const CartPage = ({ user, cart, setCart, clickedProduct, setClickedProduct, prod
     <Container className="mt-4">
       <h2 className="text-center mb-4">Your Cart</h2>
       {cartItems.length > 0 ? (
-        <div>
+        <div className="justify-content-center">
           <Row className="g-0 justify-content-center">
             {cartItems.map((post, index) => (
               <Col key={index} xs={12} sm={6} md={4} lg={3} xl={2} className="d-flex">

@@ -35,6 +35,7 @@ const WishlistPage = ({ user, wishlist, setWishlist, clickedProduct, setClickedP
     <Container className="mt-4">
       <h2 className="text-center mb-4">Your Wishlist</h2>
       {wishlistItems.length > 0 ? (
+        <div className="justify-content-center">
         <Row className="g-0 justify-content-center">
           {wishlistItems.map((post, index) => (
             <Col key={index} xs={12} sm={6} md={4} lg={3} xl={2} className="d-flex">
@@ -42,6 +43,10 @@ const WishlistPage = ({ user, wishlist, setWishlist, clickedProduct, setClickedP
             </Col>
           ))}
         </Row>
+        <Button variant="success" className="mt-3" onClick={() => setWishlist(wishlist ? false : true)}>
+          Find Some More Favorites!
+        </Button>
+      </div>
       ) : (
         <div className="text-center mt-5">
           <h4 className="text-muted">Your Wishlist is Empty</h4>
