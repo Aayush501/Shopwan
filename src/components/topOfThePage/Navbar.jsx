@@ -12,7 +12,7 @@ import axios from 'axios'
 const saveUserAPI = import.meta.env.VITE_SAVE_USER_API;
 
 
-const ResponsiveNavbar = ({cart, setCart, wishlist, setWishlist, clickedProduct, setClickedProduct}) => {
+const ResponsiveNavbar = ({cart, setCart, wishlist, setWishlist, clickedProduct, setClickedProduct, addressPage, setAddressesPage}) => {
     const { isSignedIn, user } = useUser(); // Clerk hook for authentication status
 
     useEffect(() => {
@@ -53,14 +53,24 @@ const ResponsiveNavbar = ({cart, setCart, wishlist, setWishlist, clickedProduct,
                 <Navbar.Collapse id="navbarResponsive" className="justify-content-end">
                     {isSignedIn ? (
                         <div className="d-flex align-items-center gap-3">
+                            <Button variant="success" onClick={() => {
+                                setAddressesPage(addressPage ? false : true);
+                                setCart(false);
+                                setWishlist(false);
+                                setClickedProduct(false);
+                            }} >Your Address</Button>
                             <UserButton afterSignOutUrl="/" />
                             <BsBagCheckFill size={30} onClick={() => {
                                 setCart(cart ? false : true);
                                 setWishlist(false);
+                                setAddressesPage(false);
+                                setClickedProduct(false);
                             }} />
                             <BsBagHeartFill size={30} onClick={() => {
                                 setWishlist(wishlist ? false : true);
                                 setCart(false);
+                                setAddressesPage(false);
+                                setClickedProduct(false);
                             }} />
                         </div>
                     ) : (
