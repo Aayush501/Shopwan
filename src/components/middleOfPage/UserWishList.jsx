@@ -34,3 +34,7 @@ const WishlistPage = ({ wishlistItems, wishlist, setWishlist }) => {
 };
 
 export default WishlistPage;
+
+
+
+// implement this page

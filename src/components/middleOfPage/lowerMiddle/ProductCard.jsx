@@ -10,6 +10,7 @@ import { useUser } from "@clerk/clerk-react";
 
 const addToCartAPI = import.meta.env.VITE_USERCART_API;
 const addToWishlistAPI = import.meta.env.VITE_USERWISHLIST_API;
+const removeFromCartAPI = import.meta.env.VITE_REMOVE_FROM_CART;
 
 const ProductCard = ({ifCartPage, postData, clickedProduct, setClickedProduct, productPageProduct, setProductPageProduct }) => {
   const { isSignedIn, user } = useUser();
@@ -30,9 +31,23 @@ const ProductCard = ({ifCartPage, postData, clickedProduct, setClickedProduct, p
     }
   };
 
-  const removeFromCart = () => {
-    alert("Feature under development");
-  }
+  const removeFromCart = async () => {
+    if (isSignedIn && user) {
+      try {
+        const response = await axios.delete(`${removeFromCartAPI}/${postData.uid}`, {
+          data: { email: user.primaryEmailAddress.emailAddress }, // Send email in request body
+        });
+  
+        alert(response.data.message);
+        console.log("Updated Cart:", response.data.cart);
+  
+        // Optionally, update UI state after removal
+      } catch (error) {
+        console.error("Error removing product from cart", error);
+        alert(error.response?.data?.message || "Failed to remove product from cart");
+      }
+    }
+  };  
 
   const addToWishlist = async () => {
     if (isSignedIn && user) {
