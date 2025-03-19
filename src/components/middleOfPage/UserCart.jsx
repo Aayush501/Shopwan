@@ -27,9 +27,6 @@ const CartPage = ({ user, cart, setCart, clickedProduct, setClickedProduct, prod
       } catch (error) {
         console.error("Error fetching cart items:", error);
       }
-
-      // unable to fetch cart items and its frontend problem
-      
     };
 
     fetchCart();

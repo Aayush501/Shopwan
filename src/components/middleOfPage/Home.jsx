@@ -6,7 +6,6 @@ import UserCart from "./UserCart";
 import UserWishList from "./UserWishList";
 import ProductPage from "./ProductPage";
 import { useUser } from "@clerk/clerk-react";
-import axios from "axios";
 
 const Home = () => {
   const homeStyle = { marginBottom: "10px" };
@@ -43,7 +42,15 @@ const Home = () => {
             setProductPageProduct={setProductPageProduct}
           />
         ) : wishlist && !cart && !clickedProduct ? (
-          <UserWishList wishlistItems={[]} wishlist={wishlist} setWishlist={setWishlist} />
+          <UserWishList
+            user={user}
+            wishlist={wishlist}
+            setWishlist={setWishlist}
+            clickedProduct={clickedProduct}
+            setClickedProduct={setClickedProduct}
+            productPageProduct={productPageProduct}
+            setProductPageProduct={setProductPageProduct}
+          />
         ) : (
           <ProductPage product={productPageProduct} user={user} />
         )}
