@@ -12,7 +12,7 @@ import axios from 'axios'
 const saveUserAPI = import.meta.env.VITE_SAVE_USER_API;
 
 
-const ResponsiveNavbar = ({cart, setCart, wishlist, setWishlist}) => {
+const ResponsiveNavbar = ({cart, setCart, wishlist, setWishlist, clickedProduct, setClickedProduct}) => {
     const { isSignedIn, user } = useUser(); // Clerk hook for authentication status
 
     useEffect(() => {
@@ -35,7 +35,7 @@ const ResponsiveNavbar = ({cart, setCart, wishlist, setWishlist}) => {
     return (
         <Navbar expand="lg" className="bg-body-tertiary p-2" sticky="top">
             <Container fluid className="d-flex justify-content-between align-items-center">
-                <Navbar.Brand href="#">Shopwan</Navbar.Brand>
+                <Navbar.Brand href="/">Shopwan</Navbar.Brand>
                 <div className="flex-grow-1 d-flex justify-content-center">
                     <Form className="d-flex" size="sm">
                         <Form.Control

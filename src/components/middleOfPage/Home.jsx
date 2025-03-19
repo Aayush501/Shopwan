@@ -21,7 +21,7 @@ const Home = () => {
   return (
     <>
       <div style={homeStyle}>
-        <Navbar cart={cart} setCart={setCart} wishlist={wishlist} setWishlist={setWishlist} />
+        <Navbar cart={cart} setCart={setCart} wishlist={wishlist} setWishlist={setWishlist} clickedProduct={clickedProduct} setClickedProduct={setClickedProduct} />
       </div>
 
       <div style={homeStyle} className="w-100 d-flex flex-column justify-content-center align-items-center">
