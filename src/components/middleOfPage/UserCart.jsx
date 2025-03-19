@@ -38,13 +38,16 @@ const CartPage = ({ user, cart, setCart, clickedProduct, setClickedProduct, prod
     <Container className="mt-4">
       <h2 className="text-center mb-4">Your Cart</h2>
       {cartItems.length > 0 ? (
-        <Row className="g-0 justify-content-center">
-        {cartItems.map((post, index) => (
-          <Col key={index} xs={12} sm={6} md={4} lg={3} xl={2} className="d-flex">
-            <ProductCard ifCartPage={true} ifWishlistPage={false} postData={post} clickedProduct={clickedProduct} setClickedProduct={setClickedProduct} productPageProduct={productPageProduct} setProductPageProduct={setProductPageProduct} />
-          </Col>
-        ))}
-      </Row>
+        <div>
+          <Row className="g-0 justify-content-center">
+            {cartItems.map((post, index) => (
+              <Col key={index} xs={12} sm={6} md={4} lg={3} xl={2} className="d-flex">
+                <ProductCard ifCartPage={true} ifWishlistPage={false} postData={post} clickedProduct={clickedProduct} setClickedProduct={setClickedProduct} productPageProduct={productPageProduct} setProductPageProduct={setProductPageProduct} />
+              </Col>
+            ))}
+          </Row>
+          <Button variant="primary" className="mt-3" onClick={() => setCart(cart ? false : true)} >Add More Products</Button>
+        </div>
       ) : (
         <div className="text-center mt-5">
           <h4 className="text-muted">You Have Not Added Anything In Your Cart</h4>
