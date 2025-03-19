@@ -11,8 +11,9 @@ import { useUser } from "@clerk/clerk-react";
 const addToCartAPI = import.meta.env.VITE_USERCART_API;
 const addToWishlistAPI = import.meta.env.VITE_USERWISHLIST_API;
 const removeFromCartAPI = import.meta.env.VITE_REMOVE_FROM_CART;
+const removeFromWishlistAPI = import.meta.env.VITE_REMOVE_FROM_WISHLIST;
 
-const ProductCard = ({ifCartPage, postData, clickedProduct, setClickedProduct, productPageProduct, setProductPageProduct }) => {
+const ProductCard = ({ifCartPage, ifWishlistPage, postData, clickedProduct, setClickedProduct, productPageProduct, setProductPageProduct }) => {
   const { isSignedIn, user } = useUser();
 
   const addToCart = async () => {
@@ -64,6 +65,24 @@ const ProductCard = ({ifCartPage, postData, clickedProduct, setClickedProduct, p
     }
   };
 
+  const removeFromWishlist = async () => {
+    if (isSignedIn && user) {
+      try {
+        const response = await axios.delete(`${removeFromWishlistAPI}/${postData.uid}`, {
+          data: { email: user.primaryEmailAddress.emailAddress }, // Send email in request body
+        });
+  
+        alert(response.data.message);
+        console.log("Updated Wishlist:", response.data.wishlist);
+  
+        // Optionally, update UI state after removal
+      } catch (error) {
+        console.error("Error removing product from wishlist", error);
+        alert(error.response?.data?.message || "Failed to remove product from wishlist");
+      }
+    }
+  };  
+
   return (
     <Card style={{ width: "18rem", border: "1px solid #4635B1", background: "#FFFBCA" }} >
       <Card.Img
@@ -94,18 +113,20 @@ const ProductCard = ({ifCartPage, postData, clickedProduct, setClickedProduct, p
           BUY <AiFillCarryOut fill="yellow" />
         </Button>
         {
-          !ifCartPage ? <Button variant="primary" className="d-flex gap-2 btn-sm my-1" onClick={addToCart}>
+          !ifCartPage && !ifWishlistPage ? <Button variant="primary" className="d-flex gap-2 btn-sm my-1" onClick={addToCart}>
                           ADD TO CART <FaCartArrowDown fill="yellow" />
-                        </Button> :
+                        </Button> : ifCartPage ? 
                         <Button variant="primary" className="d-flex gap-2 btn-sm my-1" onClick={removeFromCart}>
                           Remove From Cart <FaCartArrowDown fill="yellow" />
-                        </Button>
+                        </Button> : ""
         }
         {
-          !ifCartPage ? <Button variant="danger" className="d-flex gap-2 btn-sm my-1" onClick={addToWishlist}>
+          !ifCartPage && !ifWishlistPage ? <Button variant="danger" className="d-flex gap-2 btn-sm my-1" onClick={addToWishlist}>
                           ADD TO WISHLIST <FaHeart fill="white" />
-                        </Button> : 
-                        ""
+                        </Button> : ifWishlistPage ? 
+                        <Button variant="primary" className="d-flex gap-2 btn-sm my-1" onClick={removeFromWishlist}>
+                          Remove From WishList <FaCartArrowDown fill="yellow" />
+                        </Button> : ""
         }
 
       </Card.Body>

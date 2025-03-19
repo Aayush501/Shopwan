@@ -1,23 +1,44 @@
-import React from "react";
-import { Container, Row, Col, Button, Card } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import ProductCard from "./lowerMiddle/ProductCard";
+import { Container, Row, Col, Button } from "react-bootstrap";
+import axios from "axios";
 
-const WishlistPage = ({ wishlistItems, wishlist, setWishlist }) => {
+const WishlistPage = ({ user, wishlist, setWishlist, clickedProduct, setClickedProduct, productPageProduct, setProductPageProduct }) => {
+  
+  console.log("User : ", user);
+  console.log("Wishlist : ", wishlist);
+  console.log("clickedProduct : ", clickedProduct);
+  console.log("productPageProduct : ", productPageProduct);
+
+  const [wishlistItems, setWishlistItems] = useState([]);
+  const apiUrl = import.meta.env.VITE_USER_WISHLIST_ITEMS;
+
+  useEffect(() => {
+    const fetchWishlist = async () => {
+      try {
+        const userEmail = user.primaryEmailAddress.emailAddress;
+        console.log("userEmail : ", userEmail);
+        const response = await axios.get(`${apiUrl}?email=${userEmail}`);
+        console.log(response.data.wishlist);
+        setWishlistItems(response.data.wishlist);
+      } catch (error) {
+        console.error("Error fetching wishlist items:", error);
+      }
+    };
+
+    fetchWishlist();
+  }, []);
+
+  console.log("wishlistItems : ", wishlistItems);
 
   return (
     <Container className="mt-4">
       <h2 className="text-center mb-4">Your Wishlist</h2>
       {wishlistItems.length > 0 ? (
-        <Row>
-          {wishlistItems.map((item, index) => (
-            <Col md={4} key={index} className="mb-4">
-              <Card>
-                <Card.Img variant="top" src={item.image} alt={item.name} />
-                <Card.Body>
-                  <Card.Title>{item.name}</Card.Title>
-                  <Card.Text>Price: ${item.price}</Card.Text>
-                </Card.Body>
-              </Card>
+        <Row className="g-0 justify-content-center">
+          {wishlistItems.map((post, index) => (
+            <Col key={index} xs={12} sm={6} md={4} lg={3} xl={2} className="d-flex">
+              <ProductCard ifCartPage={false} ifWishlistPage={true} postData={post} clickedProduct={clickedProduct} setClickedProduct={setClickedProduct} productPageProduct={productPageProduct} setProductPageProduct={setProductPageProduct} />
             </Col>
           ))}
         </Row>
@@ -34,7 +55,3 @@ const WishlistPage = ({ wishlistItems, wishlist, setWishlist }) => {
 };
 
 export default WishlistPage;
-
-
-
-// implement this page

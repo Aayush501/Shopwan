@@ -44,7 +44,7 @@ const CartPage = ({ user, cart, setCart, clickedProduct, setClickedProduct, prod
         <Row className="g-0 justify-content-center">
         {cartItems.map((post, index) => (
           <Col key={index} xs={12} sm={6} md={4} lg={3} xl={2} className="d-flex">
-            <ProductCard ifCartPage={true} postData={post} clickedProduct={clickedProduct} setClickedProduct={setClickedProduct} productPageProduct={productPageProduct} setProductPageProduct={setProductPageProduct} />
+            <ProductCard ifCartPage={true} ifWishlistPage={false} postData={post} clickedProduct={clickedProduct} setClickedProduct={setClickedProduct} productPageProduct={productPageProduct} setProductPageProduct={setProductPageProduct} />
           </Col>
         ))}
       </Row>
