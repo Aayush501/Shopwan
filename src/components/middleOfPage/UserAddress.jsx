@@ -9,7 +9,7 @@ const UserAddressPage = ({ user }) => {
     console.log("USER:", user);
     console.log("EMAIL:", user?.primaryEmailAddress?.emailAddress);
 
-    const [addresses, setAddresses] = useState([]);
+    const [addresses, setAddresses] = useState(() => []);
     const [showForm, setShowForm] = useState(false);
     const [formData, setFormData] = useState({ street: "", city: "", state: "", country: "", postalCode: "" });
 
@@ -18,13 +18,14 @@ const UserAddressPage = ({ user }) => {
         if (!user?.primaryEmailAddress?.emailAddress) return;
         try {
             const response = await axios.get(`${fetchApiUrl}/${user.primaryEmailAddress.emailAddress}`);
-            console.log(response);
-            console.log(response.data.addresses);
-            setAddresses(response.data.addresses);
+            console.log(response.data);
+            setAddresses(Array.isArray(response.data.addresses) ? response.data.addresses : []);
         } catch (error) {
             console.error("Error fetching addresses:", error);
+            setAddresses([]); // Prevent undefined state
         }
     }, [user?.primaryEmailAddress?.emailAddress]);
+    
 
     useEffect(() => {
         fetchAddresses();
