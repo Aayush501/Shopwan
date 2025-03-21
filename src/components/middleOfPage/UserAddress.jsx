@@ -5,9 +5,8 @@ import axios from "axios";
 const fetchApiUrl = import.meta.env.VITE_FETCH_USER_ADDRESSES;
 const addApiUrl = import.meta.env.VITE_ADD_USER_ADDRESSES;
 
-const UserAddressPage = ({ user }) => {
-    console.log("USER:", user);
-    console.log("EMAIL:", user?.primaryEmailAddress?.emailAddress);
+const UserAddressPage = ({ email }) => {
+    console.log("EMAIL:", email);
 
     const [addresses, setAddresses] = useState(() => []);
     const [showForm, setShowForm] = useState(false);
@@ -15,16 +14,17 @@ const UserAddressPage = ({ user }) => {
 
     // Fetch user addresses
     const fetchAddresses = useCallback(async () => {
-        if (!user?.primaryEmailAddress?.emailAddress) return;
+        if (!email) return;
         try {
-            const response = await axios.get(`${fetchApiUrl}/${user.primaryEmailAddress.emailAddress}`);
-            console.log(response.data);
+            const response = await axios.get(`${fetchApiUrl}/${email}`);
+            console.log("response: " + response);
+            console.log("response.data.addresses: " + response.data.addresses);
             setAddresses(Array.isArray(response.data.addresses) ? response.data.addresses : []);
         } catch (error) {
             console.error("Error fetching addresses:", error);
             setAddresses([]); // Prevent undefined state
         }
-    }, [user?.primaryEmailAddress?.emailAddress]);
+    }, [email]);
     
 
     useEffect(() => {
@@ -41,7 +41,7 @@ const UserAddressPage = ({ user }) => {
         e.preventDefault();
         try {
             await axios.post(`${addApiUrl}`, formData, {
-                params: { userID: user?.primaryEmailAddress?.emailAddress },
+                params: { email : email },
             });
             fetchAddresses(); // Refresh addresses
             setShowForm(false); // Close modal

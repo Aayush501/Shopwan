@@ -64,7 +64,7 @@ const Home = () => {
           />
         ) : !wishlist && !cart && clickedProduct && !addressPage ? (
           <ProductPage product={productPageProduct} user={user} />
-        ) : <UserAddress user={user}></UserAddress>
+        ) : <UserAddress email={user.primaryEmailAddress.emailAddress}></UserAddress>
         }
       </div>
 
