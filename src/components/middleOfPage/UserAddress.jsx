@@ -18,6 +18,8 @@ const UserAddressPage = ({ user }) => {
         if (!user?.primaryEmailAddress?.emailAddress) return;
         try {
             const response = await axios.get(`${fetchApiUrl}/${user.primaryEmailAddress.emailAddress}`);
+            console.log(response);
+            console.log(response.data.addresses);
             setAddresses(response.data.addresses);
         } catch (error) {
             console.error("Error fetching addresses:", error);
