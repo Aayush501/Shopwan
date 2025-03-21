@@ -4,8 +4,13 @@ import axios from "axios";
 import AddressForm from "./AddressForm";
 
 const apiUrl = import.meta.env.VITE_FETCH_USER_ADDRESSES;
+console.log(apiUrl);
 
 const UserAddress = ({ user }) => {
+
+    console.log("USER: " + user);
+    console.log(user.primaryEmailAddress.emailAddress);
+
     const [addresses, setAddresses] = useState([]);
     const [showForm, setShowForm] = useState(false);
 
