@@ -1,34 +1,52 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { Card, Button, Container, Row, Col } from "react-bootstrap";
+import { Card, Button, Container, Row, Col, Modal, Form } from "react-bootstrap";
 import axios from "axios";
-import AddressForm from "./AddressForm";
 
-const apiUrl = import.meta.env.VITE_FETCH_USER_ADDRESSES;
-console.log(apiUrl);
+const fetchApiUrl = import.meta.env.VITE_FETCH_USER_ADDRESSES;
+const addApiUrl = import.meta.env.VITE_ADD_USER_ADDRESSES;
 
-const UserAddress = ({ user }) => {
-
-    console.log("USER: " + user);
-    console.log(user.primaryEmailAddress.emailAddress);
+const UserAddressPage = ({ user }) => {
+    console.log("USER:", user);
+    console.log("EMAIL:", user?.primaryEmailAddress?.emailAddress);
 
     const [addresses, setAddresses] = useState([]);
     const [showForm, setShowForm] = useState(false);
+    const [formData, setFormData] = useState({ street: "", city: "", state: "", country: "", postalCode: "" });
 
-    // Fetch user addresses with useCallback to prevent unnecessary re-creation
+    // Fetch user addresses
     const fetchAddresses = useCallback(async () => {
         if (!user?.primaryEmailAddress?.emailAddress) return;
         try {
-            const response = await axios.get(`${apiUrl}/${user.primaryEmailAddress.emailAddress}`);
+            const response = await axios.get(`${fetchApiUrl}/${user.primaryEmailAddress.emailAddress}`);
             setAddresses(response.data.addresses);
         } catch (error) {
             console.error("Error fetching addresses:", error);
         }
     }, [user?.primaryEmailAddress?.emailAddress]);
 
-    // Fetch addresses on component mount & when user changes
     useEffect(() => {
         fetchAddresses();
     }, [fetchAddresses]);
+
+    // Handle form input changes
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
+
+    // Handle form submission
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            await axios.post(`${addApiUrl}`, formData, {
+                params: { userID: user?.primaryEmailAddress?.emailAddress },
+            });
+            fetchAddresses(); // Refresh addresses
+            setShowForm(false); // Close modal
+            setFormData({ street: "", city: "", state: "", country: "", postalCode: "" }); // Reset form
+        } catch (error) {
+            console.error("Error adding address:", error);
+        }
+    };
 
     return (
         <Container className="my-4">
@@ -56,19 +74,44 @@ const UserAddress = ({ user }) => {
                 )}
             </Row>
             <div className="text-center mt-4">
-                <Button variant="success" onClick={() => setShowForm(true)}>
-                    Want to add another address?
-                </Button>
+                <Button variant="success" onClick={() => setShowForm(true)}>Want to add another address?</Button>
             </div>
-            {/* Pass fetchAddresses function properly */}
-            <AddressForm 
-                show={showForm} 
-                handleClose={() => setShowForm(false)} 
-                fetchAddresses={fetchAddresses} // ✅ Now correctly defined
-                userEmail={user?.primaryEmailAddress?.emailAddress} 
-            />
+
+            {/* Address Form Modal */}
+            <Modal show={showForm} onHide={() => setShowForm(false)} centered>
+                <Modal.Header closeButton>
+                    <Modal.Title>Add a New Address</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form onSubmit={handleSubmit}>
+                        <Form.Group className="mb-3">
+                            <Form.Label>Street</Form.Label>
+                            <Form.Control type="text" name="street" value={formData.street} onChange={handleChange} required />
+                        </Form.Group>
+                        <Form.Group className="mb-3">
+                            <Form.Label>City</Form.Label>
+                            <Form.Control type="text" name="city" value={formData.city} onChange={handleChange} required />
+                        </Form.Group>
+                        <Form.Group className="mb-3">
+                            <Form.Label>State</Form.Label>
+                            <Form.Control type="text" name="state" value={formData.state} onChange={handleChange} required />
+                        </Form.Group>
+                        <Form.Group className="mb-3">
+                            <Form.Label>Country</Form.Label>
+                            <Form.Control type="text" name="country" value={formData.country} onChange={handleChange} required />
+                        </Form.Group>
+                        <Form.Group className="mb-3">
+                            <Form.Label>Postal Code</Form.Label>
+                            <Form.Control type="text" name="postalCode" value={formData.postalCode} onChange={handleChange} required />
+                        </Form.Group>
+                        <div className="text-center">
+                            <Button variant="success" type="submit">Save Address</Button>
+                        </div>
+                    </Form>
+                </Modal.Body>
+            </Modal>
         </Container>
     );
 };
 
-export default UserAddress;
+export default UserAddressPage;
